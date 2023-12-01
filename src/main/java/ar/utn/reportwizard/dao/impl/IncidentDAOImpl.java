@@ -17,7 +17,7 @@ public class IncidentDAOImpl implements Serializable, IncidentDAO {
         List<Incident> incidents;
 
         try {
-            TypedQuery<Incident> createQuery = em.createQuery("SELECT i FROM Incident i JOIN FETCH i.customer JOIN FETCH i.service", Incident.class);
+            TypedQuery<Incident> createQuery = em.createQuery("SELECT DISTINCT i FROM Incident i JOIN FETCH i.customer JOIN FETCH i.service", Incident.class);
             incidents = createQuery.getResultList();
         } finally {
             if (em != null) {

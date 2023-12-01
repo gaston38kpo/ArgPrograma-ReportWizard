@@ -17,7 +17,7 @@ public class CustomerDAOImpl implements Serializable, CustomerDAO {
         List<Customer> customers;
 
         try {
-            TypedQuery<Customer> createQuery = em.createQuery("SELECT c FROM Customer c JOIN FETCH c.services", Customer.class);
+            TypedQuery<Customer> createQuery = em.createQuery("SELECT DISTINCT c FROM Customer c JOIN FETCH c.services", Customer.class);
             customers = createQuery.getResultList();
         } finally {
             if (em != null) {

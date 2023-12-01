@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class RRHHView {
 
-    private static TechnicianController controller;
-    private static Scanner scanner;
+    private TechnicianController controller;
+    private Scanner scanner;
 
     public RRHHView() {
         this.controller = new TechnicianController();
@@ -55,10 +55,11 @@ public class RRHHView {
                 } else {
                     System.out.println("Solo se permiten numeros!, presione Enter para intentarlo de nuevo... ");
                 }
-                scanner.nextLine();
-                scanner.nextLine();
-                System.out.println("\n\n");
             }
+
+            scanner.nextLine();
+            scanner.nextLine();
+            System.out.println("\n\n");
         }
 
     }

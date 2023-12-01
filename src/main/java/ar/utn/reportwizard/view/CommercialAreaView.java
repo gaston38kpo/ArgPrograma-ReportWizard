@@ -1,5 +1,5 @@
 package ar.utn.reportwizard.view;
 
-public class CommercialArea {
+public class CommercialAreaView {
     
 }

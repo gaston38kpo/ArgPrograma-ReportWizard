@@ -17,7 +17,7 @@ public class ProblemDAOImpl implements Serializable, ProblemDAO {
         List<Problem> problems;
 
         try {
-            TypedQuery<Problem> createQuery = em.createQuery("SELECT p FROM Problem p JOIN FETCH p.incident JOIN FETCH p.specialties", Problem.class);
+            TypedQuery<Problem> createQuery = em.createQuery("SELECT DISTINCT p FROM Problem p JOIN FETCH p.incident JOIN FETCH p.specialties", Problem.class);
             problems = createQuery.getResultList();
         } finally {
             if (em != null) {

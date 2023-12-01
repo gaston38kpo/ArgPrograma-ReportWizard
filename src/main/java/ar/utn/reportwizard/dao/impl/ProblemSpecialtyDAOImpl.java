@@ -17,7 +17,7 @@ public class ProblemSpecialtyDAOImpl implements Serializable, ProblemSpecialtyDA
         List<ProblemSpecialty> problemSpecialtys;
 
         try {
-            TypedQuery<ProblemSpecialty> createQuery = em.createQuery("SELECT ps FROM ProblemSpecialty ps JOIN FETCH ps.problem JOIN FETCH ps.specialty JOIN FETCH ps.technician", ProblemSpecialty.class);
+            TypedQuery<ProblemSpecialty> createQuery = em.createQuery("SELECT DISTINCT ps FROM ProblemSpecialty ps JOIN FETCH ps.problem JOIN FETCH ps.specialty JOIN FETCH ps.technician", ProblemSpecialty.class);
             problemSpecialtys = createQuery.getResultList();
         } finally {
             if (em != null) {

@@ -17,7 +17,7 @@ public class SpecialtyDAOImpl implements Serializable, SpecialtyDAO {
         List<Specialty> specialtys;
 
         try {
-            TypedQuery<Specialty> createQuery = em.createQuery("SELECT s FROM Specialty s JOIN FETCH s.problems", Specialty.class);
+            TypedQuery<Specialty> createQuery = em.createQuery("SELECT DISTINCT s FROM Specialty s JOIN FETCH s.problems", Specialty.class);
             specialtys = createQuery.getResultList();
         } finally {
             if (em != null) {

@@ -1,6 +1,5 @@
 package ar.utn.reportwizard.dao;
 
-import ar.utn.reportwizard.dao.impl.exceptions.NonexistentEntityException;
 import java.util.List;
 
 public interface DAO<T> {
@@ -23,7 +22,7 @@ public interface DAO<T> {
     /**
      * Crea un registro en la tabla T
      *
-     * @param T
+     * @param t
      * @return Boolean
      */
     Boolean create(T t);
@@ -34,7 +33,7 @@ public interface DAO<T> {
      * @param t
      * @return Boolean
      */
-    Boolean update(T t) throws NonexistentEntityException, Exception;
+    Boolean update(T t);
 
     /**
      * Elimina un registro de la tabla T de manera Fisica
@@ -42,7 +41,7 @@ public interface DAO<T> {
      * @param id
      * @return Boolean
      */
-    Boolean deleteById(Long id) throws NonexistentEntityException;
+    Boolean deleteById(Long id);
 
     /**
      * Elimina un registro de la tabla T de manera Logica
