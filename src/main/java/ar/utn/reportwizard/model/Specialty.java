@@ -34,14 +34,7 @@ public class Specialty implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Specialty {")
-                .append("\n\tid=").append(id)
-                .append(",\n\ttitle='").append(title).append('\'')
-                .append(",\n\tmax_resolution_time=").append(max_resolution_time)
-                .append(",\n\tisDeleted=").append(isDeleted)
-                .append("\n}");
-        return sb.toString();
+        return "ID: " + this.getId() + ". " + this.getTitle().toUpperCase() + " (Max. resolucion: " + this.getMax_resolution_time() + "hs)";
     }
 
     @Override

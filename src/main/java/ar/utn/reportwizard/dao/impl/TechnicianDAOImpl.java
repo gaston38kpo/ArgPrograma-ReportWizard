@@ -17,7 +17,7 @@ public class TechnicianDAOImpl implements Serializable, TechnicianDAO {
         List<Technician> technicians;
 
         try {
-            TypedQuery<Technician> createQuery = em.createQuery("SELECT t FROM Technician t JOIN FETCH t.specialties", Technician.class);
+            TypedQuery<Technician> createQuery = em.createQuery("SELECT DISTINCT t FROM Technician t JOIN FETCH t.specialties", Technician.class);
             technicians = createQuery.getResultList();
         } finally {
             if (em != null) {

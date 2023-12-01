@@ -41,14 +41,7 @@ public class Technician implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Technician {")
-                .append("\n\tid=").append(id)
-                .append(",\n\tname='").append(name).append('\'')
-                .append(",\n\tpreferred_contact_method='").append(preferred_contact_method).append('\'')
-                .append(",\n\tisDeleted=").append(isDeleted)
-                .append("\n}");
-        return sb.toString();
+        return "ID: " + this.getId() + ". " + this.getName().toUpperCase() + " (Medio de contacto: " + this.getPreferred_contact_method() + ")";
     }
 
     @Override

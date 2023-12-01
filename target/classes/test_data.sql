@@ -16,8 +16,8 @@ INSERT INTO `specialty` (`isDeleted`, `max_resolution_time`, `title`) VALUES (0,
 INSERT INTO `specialty` (`isDeleted`, `max_resolution_time`, `title`) VALUES (0, '03:00:00', 'Hardware Repair');
 
 -- Datos ficticios para la tabla `technician`
-INSERT INTO `technician` (`isDeleted`, `name`, `preferred_contact_method`) VALUES (0, 'John Doe', 'Email');
-INSERT INTO `technician` (`isDeleted`, `name`, `preferred_contact_method`) VALUES (0, 'Jane Smith', 'Phone');
+INSERT INTO `technician` (`isDeleted`, `name`, `preferred_contact_method`) VALUES (0, 'John Doe', 'email');
+INSERT INTO `technician` (`isDeleted`, `name`, `preferred_contact_method`) VALUES (0, 'Jane Smith', 'whatsapp');
 
 -- Datos ficticios para la tabla `technician_specialties`
 INSERT INTO `technician_specialties` (`technician_id`, `specialty_id`) VALUES (1, 1);

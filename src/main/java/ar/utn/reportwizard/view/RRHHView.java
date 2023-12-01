@@ -28,7 +28,7 @@ public class RRHHView {
 4. Eliminar por ID
 5. Volver al menu principal""");
 
-            System.out.print("Ingrese una opción: ");
+            System.out.print("\nIngrese una opción: ");
             int opcion = 0;
             try {
                 opcion = scanner.nextInt();
@@ -51,12 +51,13 @@ public class RRHHView {
                 break;
             } else {
                 if (opcion > 5 || opcion < 1) {
-                    System.out.println("Opción inválida, presione Enter para intentarlo de nuevo... ");
+                    System.out.println("Opción inválida, intente de nuevo.");
                 } else {
-                    System.out.println("Solo se permiten numeros!, presione Enter para intentarlo de nuevo... ");
+                    System.out.println("Solo se permiten numeros!. ");
                 }
             }
 
+            System.out.print("\n[Presione ENTER para continuar] ");
             scanner.nextLine();
             scanner.nextLine();
             System.out.println("\n\n");
