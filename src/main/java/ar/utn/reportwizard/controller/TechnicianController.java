@@ -60,7 +60,7 @@ public class TechnicianController {
 
         System.out.println("\n-DATOS ESPECIALIDADES-");
         List<Specialty> findAll = this.sService.findAll();
-        
+
         List<Specialty> specialties = new ArrayList<>(this.sService.findAll());
 
         while (true) {
@@ -191,20 +191,101 @@ public class TechnicianController {
         System.out.println("Lista de Tecnicos");
         List<Technician> technicians = new ArrayList<>(this.tService.findAll());
         for (Technician t : technicians) {
-            System.out.print("\nTecnico: " + t + "\nEspecialidad/es: ");
-            for (Specialty s : t.getSpecialties()) {
-                System.out.print("|| " + s + " ");
+            if (!t.getIsDeleted()) {
+                System.out.print("\nTecnico: " + t + "\nEspecialidad/es: ");
+                for (Specialty s : t.getSpecialties()) {
+                    System.out.print("|| " + s + " ");
+                }
+                System.out.println("||");
             }
-            System.out.println("||");
         }
     }
 
     public void findById() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("-BUSQUEDA DE TECNICOS POR ID-");
+        while (true) {
+            Long id = 0L;
+            while (true) {
+                try {
+                    System.out.print("ID: ");
+                    String idStr = scanner.next();
+                    id = Long.valueOf(idStr);
+                    break;
+                } catch (Exception e) {
+                    System.out.println("!!!Solo se aceptan numeros, intentelo nuevamente.");
+                }
+            }
+
+            Technician technician = this.tService.findById(id);
+            if (technician == null) {
+                System.out.println("El tecnico con id: " + id + "No existe, intente nuevamente.");
+            } else {
+                System.out.print("\nTecnico: " + technician + "\nEspecialidad/es: ");
+                for (Specialty s : technician.getSpecialties()) {
+                    System.out.print("|| " + s + " ");
+                }
+                System.out.println("||");
+
+                System.out.print("\nDesea buscar otro?\n\t1. SI\n\t2. NO\nOpcion >_ ");
+                try {
+                    int option = scanner.nextInt();
+
+                    if (option == 2) {
+                        break;
+                    } else if (option > 2 || option < 1) {
+                        System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
+                        scanner.nextLine();
+                    }
+                } catch (Exception e) {
+                    System.out.println("!!!Entrada incorrecta, solo se admiten numeros");
+                }
+            }
+        }
     }
 
     public void deleteById() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        System.out.println("-ELIMINAR TECNICO POR ID-");
+        while (true) {
+            Long id = 0L;
+            while (true) {
+                try {
+                    System.out.print("ID: ");
+                    String idStr = scanner.next();
+                    id = Long.parseLong(idStr);
+                    break;
+                } catch (Exception e) {
+                    System.out.println("!!!Solo se aceptan numeros, intentelo nuevamente.\n");
+                }
+            }
+
+            Technician technician = this.tService.findById(id);
+            if (technician == null) {
+                System.out.println("!!!El tecnico con id: " + id + " no existe, intente nuevamente.\n");
+            } else if (technician.getIsDeleted()) {
+                System.out.println("!!!Este tecnico ya se encuentra eliminado.");
+            } else {
+                Boolean hasBeenDeleted = this.tService.logicalDeleteById(id);
+                System.out.print("\nTecnico Eliminado: " + technician + "\nEspecialidad/es: ");
+                for (Specialty s : technician.getSpecialties()) {
+                    System.out.print("|| " + s + " ");
+                }
+                System.out.println("||");
+
+                System.out.print("\nDesea eliminar a otro?\n\t1. SI\n\t2. NO\nOpcion >_ ");
+                try {
+                    int option = scanner.nextInt();
+
+                    if (option == 2) {
+                        break;
+                    } else if (option > 2 || option < 1) {
+                        System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
+                        scanner.nextLine();
+                    }
+                } catch (Exception e) {
+                    System.out.println("!!!Entrada incorrecta, solo se admiten numeros");
+                }
+            }
+        }
     }
 
 }

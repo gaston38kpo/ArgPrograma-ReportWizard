@@ -20,4 +20,12 @@ public class TechnicianService {
         return dao.findAll();
     }
 
+    public Technician findById(Long id) {
+        return dao.findById(id);
+    }
+
+    public Boolean logicalDeleteById(Long id) {
+        return dao.logicalDeleteById(id);
+    }
+
 }
