@@ -12,14 +12,15 @@ public class RRHHView {
     public RRHHView() {
         this.controller = new TechnicianController();
         this.scanner = new Scanner(System.in);
+        this.menu();
     }
 
-    public void menu() {
+    private void menu() {
 
         while (true) {
             ConsoleUtil.clearConsole();
 
-            System.out.println("\n\nCRUD Tecnicos");
+            System.out.println("AREA RRHH\n\nCRUD Tecnicos");
             System.out.println(
                     """
 1. Crear

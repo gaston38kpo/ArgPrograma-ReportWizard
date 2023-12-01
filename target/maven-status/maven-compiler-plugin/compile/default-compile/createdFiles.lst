@@ -8,6 +8,7 @@ ar\utn\reportwizard\dao\CustomerDAO.class
 ar\utn\reportwizard\controller\TechnicianController.class
 ar\utn\reportwizard\dao\ServiceDAO.class
 ar\utn\reportwizard\dao\ProblemSpecialtyDAO.class
+ar\utn\reportwizard\view\HelpDeskView.class
 ar\utn\reportwizard\service\TechnicianService.class
 ar\utn\reportwizard\dao\SpecialtyDAO.class
 ar\utn\reportwizard\view\CommercialAreaView.class
@@ -26,6 +27,7 @@ ar\utn\reportwizard\dao\IncidentDAO.class
 ar\utn\reportwizard\service\CustomerService.class
 ar\utn\reportwizard\dao\ProblemDAO.class
 ar\utn\reportwizard\util\JPAUtil.class
+ar\utn\reportwizard\view\TechnicianView.class
 ar\utn\reportwizard\view\MainView.class
 ar\utn\reportwizard\dao\TechnicianDAO.class
 ar\utn\reportwizard\dao\impl\CustomerDAOImpl.class
