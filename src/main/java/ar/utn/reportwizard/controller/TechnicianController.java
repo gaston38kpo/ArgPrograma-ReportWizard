@@ -4,6 +4,7 @@ import ar.utn.reportwizard.model.Specialty;
 import ar.utn.reportwizard.model.Technician;
 import ar.utn.reportwizard.service.SpecialtyService;
 import ar.utn.reportwizard.service.TechnicianService;
+import ar.utn.reportwizard.util.Utils;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,17 +29,7 @@ public class TechnicianController {
 
         System.out.println("\nSistema de Creacion de Tecnicos, por favor ingrese los datos a continuacion:\n\n-DATOS TECNICO-");
 
-        while (true) {
-            System.out.print("Nombre: ");
-            String name = scanner.nextLine();
-
-            if (name.isBlank()) {
-                System.out.println("!!!No puede dejar este campo vacio");
-            } else {
-                newTechnician.setName(name);
-                break;
-            }
-        }
+        newTechnician.setName(Utils.getNonEmptyInput("Nombre: "));
 
         String contactMethod;
         while (true) {
@@ -72,16 +63,13 @@ public class TechnicianController {
 
             try {
                 System.out.println("Ingrese: #ID para agregarsela. C para crearle una nueva especialidad. X para finalizar: ");
-                System.out.print(specialties + "\n>_ ");
-                String idSelectedStr = scanner.next();
+                System.out.print(specialties);
+                String idSelectedStr = Utils.getNonEmptyInput(">_ ");
                 if (idSelectedStr.toUpperCase().equals("X")) {
                     System.out.println("!!!Cancelado por el Usuario");
                     return;
                 }
-
-                if (idSelectedStr.isBlank()) {
-                    System.out.println("!!!No puede dejar este campo vacio");
-                } else if (idSelectedStr.toUpperCase().equals("C")) {
+                if (idSelectedStr.toUpperCase().equals("C")) {
                     createManually = Boolean.TRUE;
                 } else {
                     int idSelected = Integer.parseInt(idSelectedStr);
@@ -136,9 +124,7 @@ public class TechnicianController {
                 while (true) {
                     Specialty newSpecialty = new Specialty();
 
-                    System.out.print("Título: ");
-                    String title = scanner.next();
-                    newSpecialty.setTitle(title);
+                    newSpecialty.setTitle(Utils.getNonEmptyInput("Título: "));
 
                     LocalTime max_resolution_time = null;
                     while (true) {
@@ -216,8 +202,7 @@ public class TechnicianController {
             Long id = 0L;
             while (true) {
                 try {
-                    System.out.print("ID: ");
-                    String idStr = scanner.next();
+                    String idStr = Utils.getNonEmptyInput("ID: ");
                     id = Long.valueOf(idStr);
                     break;
                 } catch (Exception e) {
@@ -258,8 +243,7 @@ public class TechnicianController {
             Long id = 0L;
             while (true) {
                 try {
-                    System.out.print("ID: ");
-                    String idStr = scanner.next();
+                    String idStr = Utils.getNonEmptyInput("ID: ");
                     id = Long.parseLong(idStr);
                     break;
                 } catch (Exception e) {
@@ -306,8 +290,7 @@ public class TechnicianController {
             Long id = 0L;
             while (true) {
                 try {
-                    System.out.print("ID: ");
-                    String idStr = scanner.nextLine();
+                    String idStr = Utils.getNonEmptyInput("ID: ");
                     id = Long.parseLong(idStr);
                     break;
                 } catch (Exception e) {

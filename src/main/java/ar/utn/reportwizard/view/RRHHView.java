@@ -2,6 +2,7 @@ package ar.utn.reportwizard.view;
 
 import ar.utn.reportwizard.controller.TechnicianController;
 import ar.utn.reportwizard.util.ConsoleUtil;
+import ar.utn.reportwizard.util.Utils;
 import java.util.Scanner;
 
 public class RRHHView {
@@ -34,7 +35,7 @@ AREA RRHH
             System.out.print("\nIngrese una opción: ");
             int option = -1;
             try {
-                String optionStr = scanner.next();
+                String optionStr = Utils.getNonEmptyInput(">_ ");
                 option = Integer.parseInt(optionStr);
             } catch (Exception e) {
                 System.out.println("!!!Solo se permiten numeros!. ");

@@ -4,6 +4,7 @@ import ar.utn.reportwizard.model.Customer;
 import ar.utn.reportwizard.model.Service;
 import ar.utn.reportwizard.service.CustomerService;
 import ar.utn.reportwizard.service.ServiceService;
+import ar.utn.reportwizard.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,29 +26,9 @@ public class CustomerController {
         Customer newCustomer = new Customer();
         System.out.println("\nSistema de Creacion de Clientes, por favor ingrese los datos a continuacion:\n\n-DATOS CLIENTE-");
 
-        while (true) {
-            System.out.print("Razon Social: ");
-            String corporateName = scanner.nextLine();
+        newCustomer.setCorporate_name(Utils.getNonEmptyInput("Razon Social: "));
 
-            if (corporateName.isBlank()) {
-                System.out.println("!!!No puede dejar este campo vacio");
-            } else {
-                newCustomer.setCorporate_name(corporateName);
-                break;
-            }
-        }
-
-        while (true) {
-            System.out.print("CUIT: ");
-            String cuit = scanner.nextLine();
-
-            if (cuit.isBlank()) {
-                System.out.println("!!!No puede dejar este campo vacio");
-            } else {
-                newCustomer.setCuit(cuit);
-                break;
-            }
-        }
+        newCustomer.setCuit(Utils.getNonEmptyInput("CUIT: "));
 
         System.out.println("\n-DATOS SERVICIOS-");
         List<Service> services = this.serviceService.findAll();
@@ -57,8 +38,8 @@ public class CustomerController {
 
             try {
                 System.out.println("Ingrese: #ID para agregar. C para crearle un nuevo servicio. X para finalizar: ");
-                System.out.print(services + "\n>_ ");
-                String idSelectedStr = scanner.next();
+                System.out.print(services);
+                String idSelectedStr = Utils.getNonEmptyInput(">_ ");
                 if (idSelectedStr.toUpperCase().equals("X")) {
                     System.out.println("!!!Cancelado por el Usuario");
                     return;
@@ -121,9 +102,7 @@ public class CustomerController {
                 while (true) {
                     Service newService = new Service();
 
-                    System.out.print("Título: ");
-                    String title = scanner.nextLine();
-                    newService.setTitle(title);
+                    newService.setTitle(Utils.getNonEmptyInput("Título: "));
 
                     newCustomer.getServices().add(newService);
 
@@ -273,8 +252,7 @@ public class CustomerController {
             Long id = 0L;
             while (true) {
                 try {
-                    System.out.print("ID: ");
-                    String idStr = scanner.nextLine();
+                    String idStr = Utils.getNonEmptyInput(Utils.getNonEmptyInput(">_ "));
                     id = Long.parseLong(idStr);
                     break;
                 } catch (Exception e) {
