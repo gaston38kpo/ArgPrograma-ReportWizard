@@ -52,7 +52,7 @@ public class ProblemSpecialtyDAOImpl implements Serializable, ProblemSpecialtyDA
 
         try {
             em.getTransaction().begin();
-            em.merge(problemSpecialty);
+            em.persist(problemSpecialty);
             em.getTransaction().commit();
             hasBeenCreated = Boolean.TRUE;
         } finally {

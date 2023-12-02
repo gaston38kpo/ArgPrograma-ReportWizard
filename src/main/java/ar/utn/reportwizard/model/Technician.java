@@ -31,7 +31,10 @@ public class Technician implements Serializable {
     private String name;
     private String preferred_contact_method;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST,
+        CascadeType.MERGE
+    }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "technician_specialties",
             joinColumns = @JoinColumn(name = "technician_id"),

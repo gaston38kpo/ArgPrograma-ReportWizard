@@ -7,7 +7,7 @@ public class MainView {
 
     public static void run() {
 
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in).useDelimiter("\n");
 
         while (true) {
             ConsoleUtil.clearConsole();

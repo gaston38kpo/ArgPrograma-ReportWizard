@@ -52,7 +52,7 @@ public class TechnicianDAOImpl implements Serializable, TechnicianDAO {
 
         try {
             em.getTransaction().begin();
-            em.merge(technician);
+            em.persist(technician);
             em.getTransaction().commit();
             hasBeenCreated = Boolean.TRUE;
         } finally {

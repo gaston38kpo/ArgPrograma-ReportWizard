@@ -52,7 +52,7 @@ public class IncidentDAOImpl implements Serializable, IncidentDAO {
 
         try {
             em.getTransaction().begin();
-            em.merge(incident);
+            em.persist(incident);
             em.getTransaction().commit();
             hasBeenCreated = Boolean.TRUE;
         } finally {

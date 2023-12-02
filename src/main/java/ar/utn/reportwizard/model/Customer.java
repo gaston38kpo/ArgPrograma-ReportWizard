@@ -31,7 +31,10 @@ public class Customer implements Serializable {
     private String corporate_name;
     private String cuit;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {
+        CascadeType.PERSIST, 
+        CascadeType.MERGE
+    }, fetch = FetchType.EAGER)
     @JoinTable(
             name = "customer_service",
             joinColumns = @JoinColumn(name = "customer_id"),

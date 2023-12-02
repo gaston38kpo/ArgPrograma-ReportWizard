@@ -28,9 +28,17 @@ public class TechnicianController {
 
         System.out.println("\nSistema de Creacion de Tecnicos, por favor ingrese los datos a continuacion:\n\n-DATOS TECNICO-");
 
-        System.out.print("Nombre: ");
-        String name = scanner.nextLine();
-        newTechnician.setName(name);
+        while (true) {
+            System.out.print("Nombre: ");
+            String name = scanner.nextLine();
+
+            if (name.isBlank()) {
+                System.out.println("!!!No puede dejar este campo vacio");
+            } else {
+                newTechnician.setName(name);
+                break;
+            }
+        }
 
         String contactMethod;
         while (true) {
@@ -59,7 +67,6 @@ public class TechnicianController {
         System.out.println("\n-DATOS ESPECIALIDADES-");
         List<Specialty> specialties = this.specialtyService.findAll();
 
-
         while (true) {
             Boolean createManually = Boolean.FALSE;
 
@@ -68,7 +75,8 @@ public class TechnicianController {
                 System.out.print(specialties + "\n>_ ");
                 String idSelectedStr = scanner.next();
                 if (idSelectedStr.toUpperCase().equals("X")) {
-                    break;
+                    System.out.println("!!!Cancelado por el Usuario");
+                    return;
                 }
 
                 if (idSelectedStr.isBlank()) {

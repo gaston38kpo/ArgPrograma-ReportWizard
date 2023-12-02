@@ -11,7 +11,7 @@ public class CommercialAreaView {
 
     public CommercialAreaView() {
         this.controller = new CustomerController();
-        this.scanner = new Scanner(System.in);
+        this.scanner = new Scanner(System.in).useDelimiter("\n");
         this.menu();
     }
 

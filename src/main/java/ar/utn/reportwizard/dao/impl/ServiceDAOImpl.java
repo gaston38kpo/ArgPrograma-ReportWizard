@@ -52,7 +52,7 @@ public class ServiceDAOImpl implements Serializable, ServiceDAO {
 
         try {
             em.getTransaction().begin();
-            em.merge(service);
+            em.persist(service);
             em.getTransaction().commit();
             hasBeenCreated = Boolean.TRUE;
         } finally {

@@ -52,7 +52,7 @@ public class SpecialtyDAOImpl implements Serializable, SpecialtyDAO {
 
         try {
             em.getTransaction().begin();
-            em.merge(specialty);
+            em.persist(specialty);
             em.getTransaction().commit();
             hasBeenCreated = Boolean.TRUE;
         } finally {

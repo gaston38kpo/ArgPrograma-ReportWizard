@@ -11,7 +11,7 @@ public class RRHHView {
 
     public RRHHView() {
         this.controller = new TechnicianController();
-        this.scanner = new Scanner(System.in);
+        this.scanner = new Scanner(System.in).useDelimiter("\n");
         this.menu();
     }
 

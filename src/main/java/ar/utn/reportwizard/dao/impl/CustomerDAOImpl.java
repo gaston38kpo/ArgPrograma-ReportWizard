@@ -52,7 +52,7 @@ public class CustomerDAOImpl implements Serializable, CustomerDAO {
 
         try {
             em.getTransaction().begin();
-            em.merge(customer);
+            em.persist(customer);
             em.getTransaction().commit();
             hasBeenCreated = Boolean.TRUE;
         } finally {

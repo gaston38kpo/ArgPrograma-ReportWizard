@@ -60,7 +60,8 @@ public class CustomerController {
                 System.out.print(services + "\n>_ ");
                 String idSelectedStr = scanner.next();
                 if (idSelectedStr.toUpperCase().equals("X")) {
-                    break;
+                    System.out.println("!!!Cancelado por el Usuario");
+                    return;
                 }
 
                 if (idSelectedStr.isBlank()) {
