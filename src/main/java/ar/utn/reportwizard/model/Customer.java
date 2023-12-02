@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +31,7 @@ public class Customer implements Serializable {
     private String corporate_name;
     private String cuit;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "customer_service",
             joinColumns = @JoinColumn(name = "customer_id"),
@@ -39,6 +40,11 @@ public class Customer implements Serializable {
     private Set<Service> services = new HashSet<>();
 
     private Boolean isDeleted = Boolean.FALSE;
+
+    @Override
+    public String toString() {
+        return "ID: " + id + ". " + this.corporate_name.toUpperCase() + " - CUIT: " + this.cuit;
+    }
 
     @Override
     public int hashCode() {

@@ -20,9 +20,10 @@ public class RRHHView {
         while (true) {
             ConsoleUtil.clearConsole();
 
-            System.out.println("AREA RRHH\n\nCRUD Tecnicos");
-            System.out.println(
-                    """
+            System.out.println("""
+AREA RRHH
+                    
+                    CRUD Tecnicos
 1. Crear
 2. Ver todos
 3. Buscar por ID
@@ -41,20 +42,18 @@ public class RRHHView {
 
             if (option == 0) {
                 break;
-            } else if (option == 1) {
-                ConsoleUtil.clearConsole();
+            }
+
+            ConsoleUtil.clearConsole();
+            if (option == 1) {
                 this.controller.create();
             } else if (option == 2) {
-                ConsoleUtil.clearConsole();
                 this.controller.findAll();
             } else if (option == 3) {
-                ConsoleUtil.clearConsole();
                 this.controller.findById();
             } else if (option == 4) {
-                ConsoleUtil.clearConsole();
                 this.controller.deleteById();
             } else if (option == 5) {
-                ConsoleUtil.clearConsole();
                 this.controller.update();
             } else if (option != 0) {
                 System.out.println("Opción inválida, intente de nuevo.");

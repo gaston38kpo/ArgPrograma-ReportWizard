@@ -52,7 +52,7 @@ public class ProblemDAOImpl implements Serializable, ProblemDAO {
 
         try {
             em.getTransaction().begin();
-            em.persist(problem);
+            em.merge(problem);
             em.getTransaction().commit();
             hasBeenCreated = Boolean.TRUE;
         } finally {

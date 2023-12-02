@@ -25,6 +25,11 @@ public class Service implements Serializable {
     private Boolean isDeleted = Boolean.FALSE;
 
     @Override
+    public String toString() {
+        return "ID: " + this.id + ". " + this.title;
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 59 * hash + Objects.hashCode(this.id);
@@ -45,6 +50,5 @@ public class Service implements Serializable {
         final Service other = (Service) obj;
         return Objects.equals(this.id, other.id);
     }
-    
 
 }

@@ -16,16 +16,19 @@ public class CommercialAreaView {
     }
 
     private void menu() {
+
         while (true) {
             ConsoleUtil.clearConsole();
 
-            System.out.println("AREA COMERCIAL\n\nCRUD Clientes");
-            System.out.println(
-                    """
+            System.out.println("""
+AREA COMERCIAL
+
+                    CRUD Clientes
 1. Crear
 2. Ver todos
 3. Buscar por ID
 4. Eliminar por ID
+5. Editar
 0. Volver al menu principal""");
 
             System.out.print("\nIngrese una opción: ");
@@ -39,18 +42,19 @@ public class CommercialAreaView {
 
             if (option == 0) {
                 break;
-            } else if (option == 1) {
-                ConsoleUtil.clearConsole();
+            }
+
+            ConsoleUtil.clearConsole();
+            if (option == 1) {
                 this.controller.create();
             } else if (option == 2) {
-                ConsoleUtil.clearConsole();
                 this.controller.findAll();
             } else if (option == 3) {
-                ConsoleUtil.clearConsole();
                 this.controller.findById();
             } else if (option == 4) {
-                ConsoleUtil.clearConsole();
                 this.controller.deleteById();
+            } else if (option == 5) {
+                this.controller.update();
             } else if (option != 0) {
                 System.out.println("Opción inválida, intente de nuevo.");
             }

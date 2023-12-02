@@ -16,6 +16,7 @@ ar\utn\reportwizard\model\Customer.class
 ar\utn\reportwizard\dao\impl\ProblemDAOImpl.class
 ar\utn\reportwizard\dao\impl\TechnicianDAOImpl.class
 ar\utn\reportwizard\dao\impl\ServiceDAOImpl.class
+ar\utn\reportwizard\service\ServiceService.class
 ar\utn\reportwizard\ReportWizard.class
 ar\utn\reportwizard\dao\impl\IncidentDAOImpl.class
 ar\utn\reportwizard\service\SpecialtyService.class

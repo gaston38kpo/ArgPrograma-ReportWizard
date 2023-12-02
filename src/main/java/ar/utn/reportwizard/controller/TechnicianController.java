@@ -7,22 +7,20 @@ import ar.utn.reportwizard.service.TechnicianService;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 public class TechnicianController {
 
-    private final TechnicianService tService;
-    private final SpecialtyService sService;
+    private final TechnicianService technicianService;
+    private final SpecialtyService specialtyService;
 
     private final Scanner scanner;
 
     public TechnicianController() {
-        this.tService = new TechnicianService();
-        this.sService = new SpecialtyService();
-        this.scanner = new Scanner(System.in);
+        this.technicianService = new TechnicianService();
+        this.specialtyService = new SpecialtyService();
+        this.scanner = new Scanner(System.in).useDelimiter("\n");
     }
 
     public void create() {
@@ -59,9 +57,8 @@ public class TechnicianController {
         newTechnician.setPreferred_contact_method(contactMethod);
 
         System.out.println("\n-DATOS ESPECIALIDADES-");
-        List<Specialty> findAll = this.sService.findAll();
+        List<Specialty> specialties = this.specialtyService.findAll();
 
-        List<Specialty> specialties = new ArrayList<>(this.sService.findAll());
 
         while (true) {
             Boolean createManually = Boolean.FALSE;
@@ -70,10 +67,14 @@ public class TechnicianController {
                 System.out.println("Ingrese: #ID para agregarsela. C para crearle una nueva especialidad. X para finalizar: ");
                 System.out.print(specialties + "\n>_ ");
                 String idSelectedStr = scanner.next();
-                if (idSelectedStr.toUpperCase().equals("C")) {
-                    createManually = Boolean.TRUE;
-                } else if (idSelectedStr.toUpperCase().equals("X")) {
+                if (idSelectedStr.toUpperCase().equals("X")) {
                     break;
+                }
+
+                if (idSelectedStr.isBlank()) {
+                    System.out.println("!!!No puede dejar este campo vacio");
+                } else if (idSelectedStr.toUpperCase().equals("C")) {
+                    createManually = Boolean.TRUE;
                 } else {
                     int idSelected = Integer.parseInt(idSelectedStr);
 
@@ -170,9 +171,9 @@ public class TechnicianController {
 
         }
 
-        Boolean technicianHasBeenCreated = this.tService.create(newTechnician);
+        Boolean hasBeenCreated = this.technicianService.create(newTechnician);
 
-        if (technicianHasBeenCreated) {
+        if (hasBeenCreated) {
 
             System.out.println("[TECNICO CREADO]\n\t" + newTechnician);
             System.out.print("[ESPECIALIDADES ATRIBUIDAS]\n\t");
@@ -189,7 +190,7 @@ public class TechnicianController {
 
     public void findAll() {
         System.out.println("Lista de Tecnicos");
-        List<Technician> technicians = new ArrayList<>(this.tService.findAll());
+        List<Technician> technicians = new ArrayList<>(this.technicianService.findAll());
         for (Technician t : technicians) {
             if (!t.getIsDeleted()) {
                 System.out.print("\nTecnico: " + t + "\nEspecialidad/es: ");
@@ -216,7 +217,7 @@ public class TechnicianController {
                 }
             }
 
-            Technician technician = this.tService.findById(id);
+            Technician technician = this.technicianService.findById(id);
             if (technician == null) {
                 System.out.println("El tecnico con id: " + id + "No existe, intente nuevamente.");
             } else {
@@ -258,13 +259,13 @@ public class TechnicianController {
                 }
             }
 
-            Technician technician = this.tService.findById(id);
+            Technician technician = this.technicianService.findById(id);
             if (technician == null) {
                 System.out.println("!!!El tecnico con id: " + id + " no existe, intente nuevamente.\n");
             } else if (technician.getIsDeleted()) {
                 System.out.println("!!!Este tecnico ya se encuentra eliminado.");
             } else {
-                Boolean hasBeenDeleted = this.tService.logicalDeleteById(id);
+                Boolean hasBeenDeleted = this.technicianService.logicalDeleteById(id);
                 System.out.print("\nTecnico Eliminado: " + technician + "\nEspecialidad/es: ");
                 for (Specialty s : technician.getSpecialties()) {
                     System.out.print("|| " + s + " ");
@@ -305,7 +306,7 @@ public class TechnicianController {
                     System.out.println("!!!Solo se aceptan numeros, intentelo nuevamente.\n");
                 }
             }
-            Technician technician = this.tService.findById(id);
+            Technician technician = this.technicianService.findById(id);
             if (technician == null) {
                 System.out.println("!!!El tecnico con id: " + id + " no existe, intente nuevamente.\n");
             } else if (technician.getIsDeleted()) {
@@ -315,7 +316,7 @@ public class TechnicianController {
                 System.out.println("Ingrese el nuevo valor, para ignorar presionar ENTER");
                 System.out.print("Nombre: " + technician.getName() + " -> ");
                 String newName = scanner.nextLine();
-                if (!newName.isEmpty()) {
+                if (!newName.isBlank()) {
                     technician.setName(newName);
                 }
 
@@ -344,7 +345,7 @@ public class TechnicianController {
                 }
                 technician.setPreferred_contact_method(contactMethod);
 
-                this.tService.update(technician);
+                this.technicianService.update(technician);
 
                 System.out.print("\nDesea editar a otro?\n\t1. SI\n\t2. NO\nOpcion >_ ");
                 try {

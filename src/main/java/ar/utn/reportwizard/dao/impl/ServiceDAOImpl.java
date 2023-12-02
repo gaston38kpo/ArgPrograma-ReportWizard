@@ -17,7 +17,7 @@ public class ServiceDAOImpl implements Serializable, ServiceDAO {
         List<Service> services;
 
         try {
-            TypedQuery<Service> createQuery = em.createQuery("SELECT DISTINCT s FROM Service s", Service.class);
+            TypedQuery<Service> createQuery = em.createQuery("SELECT s FROM Service s", Service.class);
             services = createQuery.getResultList();
         } finally {
             if (em != null) {
@@ -52,7 +52,7 @@ public class ServiceDAOImpl implements Serializable, ServiceDAO {
 
         try {
             em.getTransaction().begin();
-            em.persist(service);
+            em.merge(service);
             em.getTransaction().commit();
             hasBeenCreated = Boolean.TRUE;
         } finally {
