@@ -29,6 +29,7 @@ ar\utn\reportwizard\dao\ProblemDAO.class
 ar\utn\reportwizard\util\JPAUtil.class
 ar\utn\reportwizard\view\TechnicianView.class
 ar\utn\reportwizard\view\MainView.class
+ar\utn\reportwizard\controller\CustomerController.class
 ar\utn\reportwizard\dao\TechnicianDAO.class
 ar\utn\reportwizard\dao\impl\CustomerDAOImpl.class
 ar\utn\reportwizard\view\RRHHView.class

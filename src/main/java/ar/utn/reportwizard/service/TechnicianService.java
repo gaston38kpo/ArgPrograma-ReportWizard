@@ -28,4 +28,8 @@ public class TechnicianService {
         return dao.logicalDeleteById(id);
     }
 
+    public Boolean update(Technician technician) {
+        return dao.update(technician);
+    }
+
 }

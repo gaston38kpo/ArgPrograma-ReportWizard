@@ -31,10 +31,10 @@ public class TechnicianController {
         System.out.println("\nSistema de Creacion de Tecnicos, por favor ingrese los datos a continuacion:\n\n-DATOS TECNICO-");
 
         System.out.print("Nombre: ");
-        String name = scanner.next();
+        String name = scanner.nextLine();
         newTechnician.setName(name);
 
-        String referred_contact_method;
+        String contactMethod;
         while (true) {
             System.out.print("Método de contacto preferido:\n\t1. WhatsApp\n\t2. Email\nOpcion >_ ");
 
@@ -45,10 +45,10 @@ public class TechnicianController {
             }
 
             if (opcion == 1) {
-                referred_contact_method = "whatsapp";
+                contactMethod = "whatsapp";
                 break;
             } else if (opcion == 2) {
-                referred_contact_method = "email";
+                contactMethod = "email";
                 break;
             } else {
                 System.out.println("!!!Opcion incorrecta, vuelva a intentarlo.");
@@ -56,7 +56,7 @@ public class TechnicianController {
                 System.out.println("");
             }
         }
-        newTechnician.setPreferred_contact_method(referred_contact_method);
+        newTechnician.setPreferred_contact_method(contactMethod);
 
         System.out.println("\n-DATOS ESPECIALIDADES-");
         List<Specialty> findAll = this.sService.findAll();
@@ -272,6 +272,81 @@ public class TechnicianController {
                 System.out.println("||");
 
                 System.out.print("\nDesea eliminar a otro?\n\t1. SI\n\t2. NO\nOpcion >_ ");
+                try {
+                    int option = scanner.nextInt();
+
+                    if (option == 2) {
+                        break;
+                    } else if (option > 2 || option < 1) {
+                        System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
+                        scanner.nextLine();
+                    }
+                } catch (Exception e) {
+                    System.out.println("!!!Entrada incorrecta, solo se admiten numeros");
+                }
+            }
+        }
+    }
+
+    public void update() {
+        System.out.println("-EDITAR TECNICO POR ID-");
+
+        while (true) {
+            this.findAll();
+            System.out.print("\nTecnico a editar\n");
+            Long id = 0L;
+            while (true) {
+                try {
+                    System.out.print("ID: ");
+                    String idStr = scanner.nextLine();
+                    id = Long.parseLong(idStr);
+                    break;
+                } catch (Exception e) {
+                    System.out.println("!!!Solo se aceptan numeros, intentelo nuevamente.\n");
+                }
+            }
+            Technician technician = this.tService.findById(id);
+            if (technician == null) {
+                System.out.println("!!!El tecnico con id: " + id + " no existe, intente nuevamente.\n");
+            } else if (technician.getIsDeleted()) {
+                System.out.println("!!!Este tecnico se encuentra eliminado.");
+            } else {
+                System.out.println("\nUsted eligio: " + technician + "\n");
+                System.out.println("Ingrese el nuevo valor, para ignorar presionar ENTER");
+                System.out.print("Nombre: " + technician.getName() + " -> ");
+                String newName = scanner.nextLine();
+                if (!newName.isEmpty()) {
+                    technician.setName(newName);
+                }
+
+                String contactMethod;
+                while (true) {
+                    System.out.println("Método de contacto preferido: " + technician.getPreferred_contact_method().toUpperCase());
+                    System.out.print("Nuevo:\n\t1. WhatsApp\n\t2. Email\nOpcion >_ ");
+
+                    int opcion = 0;
+                    try {
+                        opcion = scanner.nextInt();
+                    } catch (Exception e) {
+                    }
+
+                    if (opcion == 1) {
+                        contactMethod = "whatsapp";
+                        break;
+                    } else if (opcion == 2) {
+                        contactMethod = "email";
+                        break;
+                    } else {
+                        System.out.println("!!!Opcion incorrecta, vuelva a intentarlo.");
+                        scanner.next();
+                        System.out.println("");
+                    }
+                }
+                technician.setPreferred_contact_method(contactMethod);
+
+                this.tService.update(technician);
+
+                System.out.print("\nDesea editar a otro?\n\t1. SI\n\t2. NO\nOpcion >_ ");
                 try {
                     int option = scanner.nextInt();
 

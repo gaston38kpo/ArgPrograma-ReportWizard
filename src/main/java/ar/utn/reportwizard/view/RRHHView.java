@@ -27,6 +27,7 @@ public class RRHHView {
 2. Ver todos
 3. Buscar por ID
 4. Eliminar por ID
+5. Editar
 0. Volver al menu principal""");
 
             System.out.print("\nIngrese una opción: ");
@@ -52,6 +53,9 @@ public class RRHHView {
             } else if (option == 4) {
                 ConsoleUtil.clearConsole();
                 this.controller.deleteById();
+            } else if (option == 5) {
+                ConsoleUtil.clearConsole();
+                this.controller.update();
             } else if (option != 0) {
                 System.out.println("Opción inválida, intente de nuevo.");
             }

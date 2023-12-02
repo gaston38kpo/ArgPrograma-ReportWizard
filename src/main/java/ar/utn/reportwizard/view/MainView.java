@@ -12,7 +12,7 @@ public class MainView {
         while (true) {
             ConsoleUtil.clearConsole();
 
-            System.out.println("INCIDENT WIZARD 1.0\n\n");
+            System.out.println("INCIDENT WIZARD 1.0\n");
             System.out.println(
                     """
 1. AREA DE RECURSOS HUMANOS
