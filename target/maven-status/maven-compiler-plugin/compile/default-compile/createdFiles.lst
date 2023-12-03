@@ -1,6 +1,7 @@
 ar\utn\reportwizard\model\Technician.class
 ar\utn\reportwizard\model\Service.class
 ar\utn\reportwizard\dao\DAO.class
+ar\utn\reportwizard\controller\IncidentController.class
 ar\utn\reportwizard\model\Incident.class
 ar\utn\reportwizard\model\Specialty.class
 ar\utn\reportwizard\dao\impl\ProblemSpecialtyDAOImpl.class
@@ -20,6 +21,7 @@ ar\utn\reportwizard\service\ServiceService.class
 ar\utn\reportwizard\ReportWizard.class
 ar\utn\reportwizard\dao\impl\IncidentDAOImpl.class
 ar\utn\reportwizard\service\SpecialtyService.class
+ar\utn\reportwizard\controller\ServiceController.class
 ar\utn\reportwizard\util\ConsoleUtil.class
 ar\utn\reportwizard\model\Problem.class
 ar\utn\reportwizard\util\Utils.class

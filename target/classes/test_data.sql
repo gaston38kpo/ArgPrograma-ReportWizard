@@ -1,7 +1,7 @@
 USE utn_tpi;
 
 -- Rellenar la tabla `customer` con datos ficticios
-INSERT INTO `customer` (`corporate_name`, `cuit`, `isDeleted`) VALUES ('Empresa A', '20345678901', 0);
+INSERT INTO `customer` (`corporate_name`, `cuit`, `isDeleted`) VALUES ('Empresa A', '1234', 0);
 INSERT INTO `customer` (`corporate_name`, `cuit`, `isDeleted`) VALUES ('Compañía XYZ', '98765432012', 0);
 INSERT INTO `customer` (`corporate_name`, `cuit`, `isDeleted`) VALUES ('Organización ABC', '12345098765', 0);
 INSERT INTO `customer` (`corporate_name`, `cuit`, `isDeleted`) VALUES ('Empresa 123', '56789012345', 0);

@@ -27,28 +27,52 @@ public class CustomerController {
         System.out.println("\nSistema de Creacion de Clientes, por favor ingrese los datos a continuacion:\n\n-DATOS CLIENTE-");
 
         newCustomer.setCorporate_name(Utils.getNonEmptyInput("Razon Social: "));
-
         newCustomer.setCuit(Utils.getNonEmptyInput("CUIT: "));
 
         System.out.println("\n-DATOS SERVICIOS-");
         List<Service> services = this.serviceService.findAll();
 
+        //Boolean createManually = Boolean.FALSE;
         while (true) {
-            Boolean createManually = Boolean.FALSE;
 
             try {
-                System.out.println("Ingrese: #ID para agregar. C para crearle un nuevo servicio. X para finalizar: ");
-                System.out.print(services);
+                System.out.println("Ingrese: #ID para agregar. C para crearle un nuevo servicio. X para finalizar: \n" + services);
+
                 String idSelectedStr = Utils.getNonEmptyInput(">_ ");
+
                 if (idSelectedStr.toUpperCase().equals("X")) {
                     System.out.println("!!!Cancelado por el Usuario");
                     return;
                 }
 
-                if (idSelectedStr.isBlank()) {
-                    System.out.println("!!!No puede dejar este campo vacio");
-                } else if (idSelectedStr.toUpperCase().equals("C")) {
-                    createManually = Boolean.TRUE;
+                if (idSelectedStr.toUpperCase().equals("C")) {
+                    System.out.println("\n--CREACION MANUAL--");
+
+                    while (true) {
+                        Service newService = new Service();
+
+                        newService.setTitle(Utils.getNonEmptyInput("Título: "));
+
+                        newCustomer.getServices().add(newService);
+
+                        System.out.print("\n[Se agrego correctamente el servicio: " + newService.getTitle() + "]\n\nDesea añadir otro?\n\t1. SI\n\t2. NO\nOpcion ");
+                        while (true) {
+                            int option = Utils.getIntInput(">_ ");
+
+                            if (option == 1) {
+                                break;
+                            }
+
+                            if (option == 2) {
+                                return;
+                            }
+
+                            if (option > 2 || option < 1) {
+                                System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
+                                scanner.nextLine();
+                            }
+                        }
+                    }
                 } else {
                     int idSelected = Integer.parseInt(idSelectedStr);
 
@@ -97,32 +121,6 @@ public class CustomerController {
                 scanner.nextLine();
             }
 
-            if (createManually) {
-                System.out.println("\n--CREACION--");
-                while (true) {
-                    Service newService = new Service();
-
-                    newService.setTitle(Utils.getNonEmptyInput("Título: "));
-
-                    newCustomer.getServices().add(newService);
-
-                    System.out.print("\n[Se agrego correctamente el servicio: " + newService.getTitle() + "]\n\nDesea añadir otro?\n\t1. SI\n\t2. NO\nOpcion >_ ");
-                    try {
-                        int option = scanner.nextInt();
-
-                        if (option == 2) {
-                            break;
-                        } else if (option > 2 || option < 1) {
-                            System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
-                            scanner.nextLine();
-                        }
-                    } catch (Exception e) {
-                        System.out.println("!!!Entrada incorrecta, solo se admiten numeros");
-                    }
-                }
-                break;
-            }
-
         }
 
         Boolean hasBeenCreated = this.customerService.create(newCustomer);
@@ -156,20 +154,11 @@ public class CustomerController {
         }
     }
 
-    public void findById() {
+    public Customer findById() {
         System.out.println("-BUSQUEDA DE CLIENTES POR ID-");
         while (true) {
-            Long id = 0L;
-            while (true) {
-                try {
-                    System.out.print("ID: ");
-                    String idStr = scanner.next();
-                    id = Long.valueOf(idStr);
-                    break;
-                } catch (Exception e) {
-                    System.out.println("!!!Solo se aceptan numeros, intentelo nuevamente.");
-                }
-            }
+
+            Long id = Utils.getLongInput("ID: ");
 
             Customer customer = this.customerService.findById(id);
             if (customer == null) {
@@ -181,18 +170,22 @@ public class CustomerController {
                 }
                 System.out.println("||");
 
-                System.out.print("\nDesea buscar otro?\n\t1. SI\n\t2. NO\nOpcion >_ ");
-                try {
-                    int option = scanner.nextInt();
+                System.out.print("\nDesea buscar otro?\n\t1. SI\n\t2. NO\nOpcion ");
+                while (true) {
+                    int option = Utils.getIntInput(">_ ");
+
+                    if (option == 1) {
+                        break;
+                    }
 
                     if (option == 2) {
-                        break;
-                    } else if (option > 2 || option < 1) {
+                        return customer;
+                    }
+
+                    if (option > 2 || option < 1) {
                         System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
                         scanner.nextLine();
                     }
-                } catch (Exception e) {
-                    System.out.println("!!!Entrada incorrecta, solo se admiten numeros");
                 }
             }
         }
@@ -201,17 +194,8 @@ public class CustomerController {
     public void deleteById() {
         System.out.println("-ELIMINAR CLIENTE POR ID-");
         while (true) {
-            Long id = 0L;
-            while (true) {
-                try {
-                    System.out.print("ID: ");
-                    String idStr = scanner.next();
-                    id = Long.parseLong(idStr);
-                    break;
-                } catch (Exception e) {
-                    System.out.println("!!!Solo se aceptan numeros, intentelo nuevamente.\n");
-                }
-            }
+
+            Long id = Utils.getLongInput("ID: ");
 
             Customer customer = this.customerService.findById(id);
             if (customer == null) {
@@ -226,18 +210,22 @@ public class CustomerController {
                 }
                 System.out.println("||");
 
-                System.out.print("\nDesea eliminar a otro?\n\t1. SI\n\t2. NO\nOpcion >_ ");
-                try {
-                    int option = scanner.nextInt();
+                System.out.print("\nDesea eliminar a otro?\n\t1. SI\n\t2. NO\nOpcion ");
+                while (true) {
+                    int option = Utils.getIntInput(">_ ");
+
+                    if (option == 1) {
+                        break;
+                    }
 
                     if (option == 2) {
-                        break;
-                    } else if (option > 2 || option < 1) {
+                        return;
+                    }
+
+                    if (option > 2 || option < 1) {
                         System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
                         scanner.nextLine();
                     }
-                } catch (Exception e) {
-                    System.out.println("!!!Entrada incorrecta, solo se admiten numeros");
                 }
             }
         }
@@ -249,16 +237,7 @@ public class CustomerController {
         while (true) {
             this.findAll();
             System.out.print("\nCliente a editar\n");
-            Long id = 0L;
-            while (true) {
-                try {
-                    String idStr = Utils.getNonEmptyInput(Utils.getNonEmptyInput(">_ "));
-                    id = Long.parseLong(idStr);
-                    break;
-                } catch (Exception e) {
-                    System.out.println("!!!Solo se aceptan numeros, intentelo nuevamente.\n");
-                }
-            }
+            Long id = Utils.getLongInput("ID: ");
             Customer customer = this.customerService.findById(id);
             if (customer == null) {
                 System.out.println("!!!El tecnico con id: " + id + " no existe, intente nuevamente.\n");
@@ -296,6 +275,82 @@ public class CustomerController {
                     System.out.println("!!!Entrada incorrecta, solo se admiten numeros");
                 }
             }
+        }
+    }
+
+    public Customer findCustomerByAttribute() {
+        System.out.println("\n-BUSQUE UN CLIENTE-");
+        while (true) {
+
+            Customer customer = new Customer();
+            while (true) {
+                System.out.print("""
+                         
+BUSCAR POR:
+1. RAZON SOCIAL
+2. CUIT
+""");
+                int searchOption = Utils.getIntInput(">_ ");
+
+                if (searchOption == 1) {
+                    customer = this.customerService.findByCorporateName(Utils.getNonEmptyInput("Razon social: "));
+                    if (customer.getCorporate_name() != null) {
+                        break;
+                    }
+                } else if (searchOption == 2) {
+                    customer = this.customerService.findByCuit(Utils.getNonEmptyInput("CUIT: "));
+                    if (customer.getCuit() != null) {
+                        break;
+                    }
+                } else {
+                    System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
+                    scanner.nextLine();
+                }
+
+                if (customer.getCorporate_name() == null || customer.getCuit() == null) {
+                    System.out.println("!!!El cliente no existe, quiere intentarlo nuevamente?.\n1. SI\n2. NO");
+
+                    while (true) {
+                        int continueOption = Utils.getIntInput(">_ ");
+
+                        if (continueOption == 1) {
+                            break;
+                        }
+                        if (continueOption == 2) {
+                            return null;
+                        }
+                        if (continueOption > 2 || continueOption < 1) {
+                            System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
+                            scanner.nextLine();
+                        }
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            System.out.print("\nCliente: " + customer + "\nServicio/s: ");
+            for (Service s : customer.getServices()) {
+                System.out.print("|| " + s + " ");
+            }
+            System.out.println("||");
+
+            System.out.print("\nDesea buscar otro?\n\t1. SI\n\t2. NO\nOpcion ");
+            while (true) {
+                int option = Utils.getIntInput(">_ ");
+
+                if (option == 1) {
+                    break;
+                }
+                if (option == 2) {
+                    return customer;
+                }
+                if (option > 2 || option < 1) {
+                    System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
+                    scanner.nextLine();
+                }
+            }
+
         }
     }
 

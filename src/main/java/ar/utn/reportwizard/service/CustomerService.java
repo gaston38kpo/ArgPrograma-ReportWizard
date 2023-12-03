@@ -32,4 +32,12 @@ public class CustomerService {
         return dao.update(customer);
     }
 
+    public Customer findByCuit(String cuit) {
+        return dao.findByCuit(cuit);
+    }
+
+    public Customer findByCorporateName(String corporateName) {
+        return dao.findByCorporateName(corporateName);
+    }
+
 }

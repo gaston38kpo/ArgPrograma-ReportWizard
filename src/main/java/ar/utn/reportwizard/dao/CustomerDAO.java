@@ -11,4 +11,12 @@ public interface CustomerDAO extends DAO<Customer> {
      * @return Customer
      */
     Customer findByCuit(String cuit);
+
+    /**
+     * Obtiene un registro por su Razon Social de la tabla Customer
+     *
+     * @param corporateName
+     * @return Customer
+     */
+    Customer findByCorporateName(String corporateName);
 }

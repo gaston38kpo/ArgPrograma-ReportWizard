@@ -199,16 +199,7 @@ public class TechnicianController {
     public void findById() {
         System.out.println("-BUSQUEDA DE TECNICOS POR ID-");
         while (true) {
-            Long id = 0L;
-            while (true) {
-                try {
-                    String idStr = Utils.getNonEmptyInput("ID: ");
-                    id = Long.valueOf(idStr);
-                    break;
-                } catch (Exception e) {
-                    System.out.println("!!!Solo se aceptan numeros, intentelo nuevamente.");
-                }
-            }
+            Long id = Utils.getLongInput("ID: ");
 
             Technician technician = this.technicianService.findById(id);
             if (technician == null) {
@@ -240,16 +231,7 @@ public class TechnicianController {
     public void deleteById() {
         System.out.println("-ELIMINAR TECNICO POR ID-");
         while (true) {
-            Long id = 0L;
-            while (true) {
-                try {
-                    String idStr = Utils.getNonEmptyInput("ID: ");
-                    id = Long.parseLong(idStr);
-                    break;
-                } catch (Exception e) {
-                    System.out.println("!!!Solo se aceptan numeros, intentelo nuevamente.\n");
-                }
-            }
+            Long id = Utils.getLongInput("ID: ");
 
             Technician technician = this.technicianService.findById(id);
             if (technician == null) {
@@ -287,16 +269,8 @@ public class TechnicianController {
         while (true) {
             this.findAll();
             System.out.print("\nTecnico a editar\n");
-            Long id = 0L;
-            while (true) {
-                try {
-                    String idStr = Utils.getNonEmptyInput("ID: ");
-                    id = Long.parseLong(idStr);
-                    break;
-                } catch (Exception e) {
-                    System.out.println("!!!Solo se aceptan numeros, intentelo nuevamente.\n");
-                }
-            }
+            Long id = Utils.getLongInput("ID: ");
+            
             Technician technician = this.technicianService.findById(id);
             if (technician == null) {
                 System.out.println("!!!El tecnico con id: " + id + " no existe, intente nuevamente.\n");

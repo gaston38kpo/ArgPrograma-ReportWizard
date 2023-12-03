@@ -14,11 +14,12 @@ public class CustomerDAOImpl implements Serializable, CustomerDAO {
     public List<Customer> findAll() {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 
-        List<Customer> customers;
+        List<Customer> customers = null;
 
         try {
             TypedQuery<Customer> createQuery = em.createQuery("SELECT DISTINCT c FROM Customer c JOIN FETCH c.services", Customer.class);
             customers = createQuery.getResultList();
+        } catch (Exception e) {
         } finally {
             if (em != null) {
                 em.close();
@@ -32,10 +33,11 @@ public class CustomerDAOImpl implements Serializable, CustomerDAO {
     public Customer findById(Long id) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 
-        Customer customer;
+        Customer customer = null;
 
         try {
             customer = em.find(Customer.class, id);
+        } catch (Exception e) {
         } finally {
             if (em != null) {
                 em.close();
@@ -52,9 +54,10 @@ public class CustomerDAOImpl implements Serializable, CustomerDAO {
 
         try {
             em.getTransaction().begin();
-            em.persist(customer);
+            em.merge(customer);
             em.getTransaction().commit();
             hasBeenCreated = Boolean.TRUE;
+        } catch (Exception e) {
         } finally {
             if (em != null) {
                 em.close();
@@ -74,6 +77,7 @@ public class CustomerDAOImpl implements Serializable, CustomerDAO {
             em.merge(customer);
             em.getTransaction().commit();
             hasBeenUpdated = Boolean.TRUE;
+        } catch (Exception e) {
         } finally {
             if (em != null) {
                 em.close();
@@ -94,6 +98,7 @@ public class CustomerDAOImpl implements Serializable, CustomerDAO {
             em.remove(customer);
             em.getTransaction().commit();
             hasBeenDeleted = Boolean.TRUE;
+        } catch (Exception e) {
         } finally {
             if (em != null) {
                 em.close();
@@ -113,6 +118,7 @@ public class CustomerDAOImpl implements Serializable, CustomerDAO {
             customer.setIsDeleted(Boolean.TRUE);
             em.getTransaction().commit();
             hasBeenDeleted = Boolean.TRUE;
+        } catch (Exception e) {
         } finally {
             if (em != null) {
                 em.close();
@@ -132,6 +138,7 @@ public class CustomerDAOImpl implements Serializable, CustomerDAO {
             customer.setIsDeleted(Boolean.FALSE);
             em.getTransaction().commit();
             hasBeenRestored = Boolean.TRUE;
+        } catch (Exception e) {
         } finally {
             if (em != null) {
                 em.close();
@@ -144,12 +151,32 @@ public class CustomerDAOImpl implements Serializable, CustomerDAO {
     public Customer findByCuit(String cuit) {
         EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
 
-        Customer customer;
+        Customer customer = new Customer();
 
         try {
             TypedQuery<Customer> query = em.createQuery("FROM Customer WHERE cuit = :cuit", Customer.class);
             query.setParameter("cuit", cuit);
             customer = query.getSingleResult();
+        } catch (Exception e) {
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return customer;
+    }
+
+    @Override
+    public Customer findByCorporateName(String corporateName) {
+        EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+
+        Customer customer = new Customer();
+
+        try {
+            TypedQuery<Customer> query = em.createQuery("FROM Customer WHERE corporate_name = :corporateName", Customer.class);
+            query.setParameter("corporateName", corporateName);
+            customer = query.getSingleResult();
+        } catch (Exception e) {
         } finally {
             if (em != null) {
                 em.close();
