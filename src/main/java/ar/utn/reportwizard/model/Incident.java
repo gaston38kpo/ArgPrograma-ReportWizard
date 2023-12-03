@@ -44,6 +44,11 @@ public class Incident implements Serializable {
     private Boolean isDeleted = Boolean.FALSE;
 
     @Override
+    public String toString() {
+        return "\nIncident{" + "id=" + id + ", description=" + description + ", is_solved=" + is_solved + ", is_complex=" + is_complex + ", register_date=" + register_date + ", hours_it_was_solved=" + hours_it_was_solved + ", solved_date=" + solved_date + ", technician_report=" + technician_report + ", extra_hours=" + extra_hours + ", estimated_hours=" + estimated_hours + ", customer=" + customer + ", service=" + service + '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 53 * hash + Objects.hashCode(this.id);

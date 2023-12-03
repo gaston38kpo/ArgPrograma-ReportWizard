@@ -41,6 +41,11 @@ public class ProblemSpecialty implements Serializable {
     private Boolean isDeleted = Boolean.FALSE;
 
     @Override
+    public String toString() {
+        return "\nProblemSpecialty{" + "id=" + id + ", problem=" + problem + ", specialty=" + specialty + ", technician=" + technician + '}';
+    }
+
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 31 * hash + Objects.hashCode(this.problem);

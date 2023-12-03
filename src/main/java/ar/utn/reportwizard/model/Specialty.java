@@ -5,6 +5,7 @@ import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Specialty implements Serializable {
     private String title;
     private LocalTime max_resolution_time;
 
-    @OneToMany(mappedBy = "problem")
+    @OneToMany(mappedBy = "problem", fetch = FetchType.EAGER)
     Set<ProblemSpecialty> problems;
 
     private Boolean isDeleted = Boolean.FALSE;

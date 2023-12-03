@@ -12,8 +12,8 @@ INSERT INTO `service` (`isDeleted`, `title`) VALUES (0, 'Software Troubleshootin
 INSERT INTO `service` (`isDeleted`, `title`) VALUES (0, 'Server Maintenance');
 
 -- Tabla `specialty`
-INSERT INTO `specialty` (`isDeleted`, `max_resolution_time`, `title`) VALUES (0, '04:00:00', 'Networking');
-INSERT INTO `specialty` (`isDeleted`, `max_resolution_time`, `title`) VALUES (0, '03:00:00', 'Hardware Repair');
+INSERT INTO `specialty` (`isDeleted`, `max_resolution_time`, `title`) VALUES (0, '04:00:00', 'SAP');
+INSERT INTO `specialty` (`isDeleted`, `max_resolution_time`, `title`) VALUES (0, '03:00:00', 'Windows');
 
 -- Tabla `technician`
 INSERT INTO `technician` (`isDeleted`, `name`, `preferred_contact_method`) VALUES (0, 'John Doe', 'email');

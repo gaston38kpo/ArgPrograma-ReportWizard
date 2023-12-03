@@ -2,7 +2,7 @@ package ar.utn.reportwizard.view;
 
 import ar.utn.reportwizard.controller.CustomerController;
 import ar.utn.reportwizard.controller.IncidentController;
-import ar.utn.reportwizard.controller.ProblemController;
+import ar.utn.reportwizard.controller.SpecialtyController;
 import ar.utn.reportwizard.model.Customer;
 import ar.utn.reportwizard.model.Service;
 import ar.utn.reportwizard.util.ConsoleUtil;

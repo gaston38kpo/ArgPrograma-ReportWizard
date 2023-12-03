@@ -39,6 +39,12 @@ public class Problem implements Serializable {
     private Boolean isDeleted = Boolean.FALSE;
 
     @Override
+    public String toString() {
+        return "\nProblem{" + "id=" + id + ", description=" + description + ", is_solved=" + is_solved + ", time_it_was_solved=" + time_it_was_solved + ", incident=" + incident + '}';
+    }
+
+    
+    @Override
     public int hashCode() {
         int hash = 7;
         hash = 29 * hash + Objects.hashCode(this.id);
