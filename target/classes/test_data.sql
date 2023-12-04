@@ -37,9 +37,9 @@ INSERT INTO `incident` (`description`, `estimated_hours`, `extra_hours`, `hours_
 INSERT INTO `incident` (`description`, `estimated_hours`, `extra_hours`, `hours_it_was_solved`, `isDeleted`, `is_complex`, `is_solved`, `register_date`, `solved_date`, `technician_report`, `customer_id`, `service_id`) VALUES ('Server maintenance', '04:00:00', '02:00:00', '06:00:00', 0, 1, 1, '2023-11-18 09:30:00', '2023-11-18 17:00:00', 'Replaced faulty hardware', 3, 1);
 
 -- Tabla `problem`
-INSERT INTO `problem` (`description`, `isDeleted`, `is_solved`, `time_it_was_solved`, `incident_id`) VALUES ('Router failure', 0, 1, '03:30:00', 1);
+INSERT INTO `problem` (`description`, `isDeleted`, `is_solved`, `time_it_was_solved`, `incident_id`) VALUES ('Router failure', 0, 0, '03:30:00', 1);
 INSERT INTO `problem` (`description`, `isDeleted`, `is_solved`, `time_it_was_solved`, `incident_id`) VALUES ('Unknown error', 0, 0, NULL, 2);
-INSERT INTO `problem` (`description`, `isDeleted`, `is_solved`, `time_it_was_solved`, `incident_id`) VALUES ('Hardware malfunction', 0, 1, '06:00:00', 3);
+INSERT INTO `problem` (`description`, `isDeleted`, `is_solved`, `time_it_was_solved`, `incident_id`) VALUES ('Hardware malfunction', 0, 0, '06:00:00', 3);
 
 -- Tabla `problem_specialty`
 INSERT INTO `problem_specialty` (`isDeleted`, `problem_id`, `specialty_id`, `technician_id`) VALUES (0, 1, 1, 1);

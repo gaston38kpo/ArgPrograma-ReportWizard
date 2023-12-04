@@ -1,7 +1,10 @@
 package ar.utn.reportwizard.controller;
 
+import ar.utn.reportwizard.model.Problem;
+import ar.utn.reportwizard.model.ProblemSpecialty;
 import ar.utn.reportwizard.model.Specialty;
 import ar.utn.reportwizard.model.Technician;
+import ar.utn.reportwizard.service.ProblemSpecialtyService;
 import ar.utn.reportwizard.service.SpecialtyService;
 import ar.utn.reportwizard.service.TechnicianService;
 import ar.utn.reportwizard.util.Utils;
@@ -17,12 +20,14 @@ public class TechnicianController {
 
     private final TechnicianService technicianService;
     private final SpecialtyService specialtyService;
+    private final ProblemSpecialtyService problemSpecialtyService;
 
     private final Scanner scanner;
 
     public TechnicianController() {
         this.technicianService = new TechnicianService();
         this.specialtyService = new SpecialtyService();
+        this.problemSpecialtyService = new ProblemSpecialtyService();
         this.scanner = new Scanner(System.in).useDelimiter("\n");
     }
 
@@ -198,7 +203,7 @@ public class TechnicianController {
         }
     }
 
-    public void findById() {
+    public Technician findById() {
         System.out.println("-BUSQUEDA DE TECNICOS POR ID-");
         while (true) {
             Long id = Utils.getLongInput("ID: ");
@@ -218,7 +223,7 @@ public class TechnicianController {
                     int option = scanner.nextInt();
 
                     if (option == 2) {
-                        break;
+                        return technician;
                     } else if (option > 2 || option < 1) {
                         System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
                         scanner.nextLine();
@@ -329,6 +334,36 @@ public class TechnicianController {
                 }
             }
         }
+    }
+
+    public void findProblemsByTechnician(Technician technician) {
+        System.out.println("Bienvenido " + technician.getName());
+        Technician managedTechnician = this.technicianService.findById(technician.getId());
+
+        List<ProblemSpecialty> problemSpecialtyList = this.problemSpecialtyService.findByTechnicianId(managedTechnician);
+        System.out.println("Problemas no resueltos: ");
+        problemSpecialtyList.forEach(each -> {
+            if (!each.getProblem().getIs_solved()) {
+                System.out.println("\tProblema ID: " + each.getProblem().getId() + ". Descripcion: " + each.getProblem().getDescription());
+                System.out.println("\t(Pertenece al Incidente ID: " + each.getProblem().getIncident().getId() + ". Descipcion: " + each.getProblem().getIncident().getDescription() + ")\n");
+            }
+        });
+
+        System.out.println("Indique el ID del problema para marcarlo como resuelto. (0 para cancelar)");
+
+        Long id = Utils.getLongInput("ID: ");
+        if (id == 0) {
+            return;
+        }
+        ProblemSpecialty selected = problemSpecialtyList.stream().filter(each -> each.getId() == id).findFirst().orElse(null);
+        selected.getProblem().setIs_solved(Boolean.TRUE);
+        int timeItWasSolved = Utils.getIntInput("Cuantas horas le llevo resolverlo?: ");
+        selected.getProblem().setTime_it_was_solved(LocalTime.of(timeItWasSolved, 0));
+
+        this.problemSpecialtyService.update(selected);
+
+        System.out.println("[RESUELTO SATISFACTORIAMENTE, EL CLIENTE SERA NOTIFICADO EN BREVE]");
+
     }
 
 }

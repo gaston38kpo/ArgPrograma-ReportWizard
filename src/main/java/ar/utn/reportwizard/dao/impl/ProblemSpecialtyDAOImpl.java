@@ -2,8 +2,10 @@ package ar.utn.reportwizard.dao.impl;
 
 import ar.utn.reportwizard.dao.ProblemSpecialtyDAO;
 import ar.utn.reportwizard.model.ProblemSpecialty;
+import ar.utn.reportwizard.model.Technician;
 import ar.utn.reportwizard.util.JPAUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -138,5 +140,24 @@ public class ProblemSpecialtyDAOImpl implements Serializable, ProblemSpecialtyDA
             }
         }
         return hasBeenRestored;
+    }
+
+    @Override
+    public List<ProblemSpecialty> findByTechnicianId(Technician technician) {
+        EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+
+        List<ProblemSpecialty> problemSpecialtyList = null;
+
+        try {
+            TypedQuery<ProblemSpecialty> query = em.createQuery("FROM ProblemSpecialty ps WHERE ps.technician = :technician", ProblemSpecialty.class);
+            query.setParameter("technician", technician);
+            problemSpecialtyList = query.getResultList();
+        } catch (Exception e) {
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return problemSpecialtyList;
     }
 }
