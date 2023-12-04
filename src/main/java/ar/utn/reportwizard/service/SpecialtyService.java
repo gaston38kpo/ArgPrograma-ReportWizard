@@ -20,4 +20,8 @@ public class SpecialtyService {
         return dao.findAll();
     }
 
+    public Specialty findById(Long id) {
+        return dao.findById(id);
+    }
+
 }

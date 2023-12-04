@@ -2,6 +2,7 @@ package ar.utn.reportwizard.model;
 
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -26,7 +29,8 @@ public class Specialty implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private LocalTime max_resolution_time;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date max_resolution_time;
 
     @OneToMany(mappedBy = "problem", fetch = FetchType.EAGER)
     Set<ProblemSpecialty> problems;
@@ -35,7 +39,7 @@ public class Specialty implements Serializable {
 
     @Override
     public String toString() {
-        return "ID: " + this.getId() + ". " + this.getTitle().toUpperCase() + " (Max. resolucion: " + this.getMax_resolution_time() + "hs)";
+        return "ID: " + this.getId() + ". " + this.getTitle().toUpperCase() + " (Max. resolucion: " + this.getMax_resolution_time().getHours() + "hs)";
     }
 
     @Override

@@ -7,16 +7,18 @@ import ar.utn.reportwizard.model.ProblemSpecialty;
 import ar.utn.reportwizard.model.Service;
 import ar.utn.reportwizard.model.Specialty;
 import ar.utn.reportwizard.model.Technician;
-import ar.utn.reportwizard.service.CustomerService;
 import ar.utn.reportwizard.service.ProblemSpecialtyService;
 import ar.utn.reportwizard.service.SpecialtyService;
 import ar.utn.reportwizard.service.TechnicianService;
+import ar.utn.reportwizard.util.JPAUtil;
 import ar.utn.reportwizard.util.Utils;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
+import javax.persistence.EntityManager;
 
 public class IncidentController {
 
@@ -30,7 +32,11 @@ public class IncidentController {
     }
 
     public void create(Customer customer) {
-        List<Service> services = new ArrayList<>(customer.getServices());
+        EntityManager em = JPAUtil.getEntityManagerFactory().createEntityManager();
+        em.getTransaction().begin();
+        Customer managedCustomer = em.merge(customer);
+
+        List<Service> services = new ArrayList<>(managedCustomer.getServices());
 
         System.out.println("Por cual de estos Servicios desea reportar un incidente?");
         System.out.println(services);
@@ -49,16 +55,16 @@ public class IncidentController {
             }
         } while (service == null);
 
-        System.out.println("Reportando incidente de: " + customer.getCorporate_name() + ". Para el servicio: " + service + ".");
+        System.out.println("Reportando incidente de: " + managedCustomer.getCorporate_name() + ". Para el servicio: " + service + ".");
 
         Incident newIncident = new Incident();
-        newIncident.setCustomer(customer);
+        newIncident.setCustomer(managedCustomer);
         newIncident.setService(service);
         newIncident.setDescription(Utils.getNonEmptyInput("Descripcion del Incidente: "));
 
         Boolean isComplexInput = null;
         while (isComplexInput == null) {
-            String optionIsComplex = Utils.getNonEmptyInput("Es complejo?: ");
+            String optionIsComplex = Utils.getNonEmptyInput("Es complejo?\n1. SI\n2. NO\n>_ ");
             if (optionIsComplex.toUpperCase().equals("1")) {
                 isComplexInput = Boolean.TRUE;
                 break;
@@ -74,29 +80,29 @@ public class IncidentController {
 
         Problem newProblem = new Problem();
         newProblem.setDescription(Utils.getNonEmptyInput("Tipo de Problema: "));
-        newProblem.setIncident(newIncident);
+        Incident managedNewIncident = em.merge(newIncident);
+        newProblem.setIncident(managedNewIncident);
+        Problem managedNewProblem = em.merge(newProblem);
 
         ProblemSpecialty newProblemSpecialty = new ProblemSpecialty();
-        newProblemSpecialty.setProblem(newProblem);
+        newProblemSpecialty.setProblem(managedNewProblem);
 
         List<Specialty> specialties = new ArrayList<>(new SpecialtyService().findAll());
-        Specialty specialty = null;
+        Specialty managedSpecialty = null;
         do {
             System.out.println("Indique la especialidad atribuida a este Problema.");
             System.out.println(specialties);
             final Long idInputSpecialty = Utils.getLongInput("ID: ");
 
-            specialty = specialties.stream()
-                    .filter(s -> (s.getId() == idInputSpecialty))
-                    .findFirst()
-                    .orElse(null);
+            Specialty specialty = new SpecialtyService().findById(idInputSpecialty);
+            managedSpecialty = em.merge(specialty);
 
             if (specialty == null) {
                 System.out.println("!!!La especialidad no existe, intente nuevamente.");
             }
-        } while (specialty == null);
+        } while (managedSpecialty == null);
 
-        newProblemSpecialty.setSpecialty(specialty);
+        newProblemSpecialty.setSpecialty(managedSpecialty);
 
         List<Technician> technicians = new ArrayList<>(new TechnicianService().findAll());
 
@@ -120,21 +126,25 @@ public class IncidentController {
             }
         } while (technician == null);
 
-        newProblemSpecialty.setTechnician(technician);
+        Technician managedTechnician = em.merge(technician);
+        newProblemSpecialty.setTechnician(managedTechnician);
+        em.getTransaction().commit();
 
         LocalTime estimatedHours = LocalTime.MIN;
-        LocalTime maxResoltucionTime = newProblemSpecialty.getSpecialty().getMax_resolution_time();
+        Date maxResoltucionTime = newProblemSpecialty.getSpecialty().getMax_resolution_time();
+        System.out.println("1-" + newProblemSpecialty.getSpecialty());
+        System.out.println("2-" + newProblemSpecialty.getSpecialty().getMax_resolution_time());
         Boolean isComplex = newProblemSpecialty.getProblem().getIncident().getIs_complex();
 
-        estimatedHours.plusHours(maxResoltucionTime.getHour());
+        estimatedHours.plusHours(maxResoltucionTime.getHours());
         if (isComplex) {
             estimatedHours.plusHours(2);
         }
 
         newProblemSpecialty.getProblem().getIncident().setEstimated_hours(estimatedHours);
 
-        System.out.print("Tiempo estimado de Resolucion del problema: " + estimatedHours);
-        System.out.println("1. Confirmar\n2. Cancelar");
+        System.out.println("Tiempo estimado de Resolucion del problema: " + estimatedHours);
+        System.out.println("\n1. Confirmar\n2. Cancelar");
 
         while (true) {
             try {
@@ -152,6 +162,7 @@ public class IncidentController {
                 System.out.println("!!!Entrada incorrecta, solo se admiten numeros");
             }
         }
+
         problemSpecialtyService.create(newProblemSpecialty);
 
         System.out.print("\n[Se agrego correctamente el problema, el tecnico sera notificado]");

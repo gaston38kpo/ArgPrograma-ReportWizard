@@ -31,7 +31,10 @@ public class HelpDeskView {
             System.out.println("MESA DE AYUDA");
 
             Customer customer = this.customerController.findCustomerByAttribute();
-            this.incidentController.create(customer);            
+            if (customer == null) {
+                break;
+            }
+            this.incidentController.create(customer);
 
             System.out.print("\n[Presione ENTER para continuar] ");
             scanner.nextLine();

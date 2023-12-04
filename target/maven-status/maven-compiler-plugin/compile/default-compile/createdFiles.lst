@@ -20,6 +20,7 @@ ar\utn\reportwizard\dao\impl\ServiceDAOImpl.class
 ar\utn\reportwizard\service\ServiceService.class
 ar\utn\reportwizard\ReportWizard.class
 ar\utn\reportwizard\dao\impl\IncidentDAOImpl.class
+ar\utn\reportwizard\service\ProblemSpecialtyService.class
 ar\utn\reportwizard\service\SpecialtyService.class
 ar\utn\reportwizard\util\ConsoleUtil.class
 ar\utn\reportwizard\model\Problem.class

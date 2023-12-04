@@ -5,9 +5,11 @@ import ar.utn.reportwizard.model.Technician;
 import ar.utn.reportwizard.service.SpecialtyService;
 import ar.utn.reportwizard.service.TechnicianService;
 import ar.utn.reportwizard.util.Utils;
+import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -142,7 +144,7 @@ public class TechnicianController {
                             scanner.nextLine();
                         }
                     }
-                    newSpecialty.setMax_resolution_time(max_resolution_time);
+                    newSpecialty.setMax_resolution_time(new Date(Time.valueOf(max_resolution_time).getTime()));
 
                     newTechnician.getSpecialties().add(newSpecialty);
 
@@ -270,7 +272,7 @@ public class TechnicianController {
             this.findAll();
             System.out.print("\nTecnico a editar\n");
             Long id = Utils.getLongInput("ID: ");
-            
+
             Technician technician = this.technicianService.findById(id);
             if (technician == null) {
                 System.out.println("!!!El tecnico con id: " + id + " no existe, intente nuevamente.\n");
