@@ -38,7 +38,6 @@ public class HelpDeskView {
 
             System.out.print("\n[Presione ENTER para continuar] ");
             scanner.nextLine();
-            scanner.nextLine();
             System.out.println("\n\n");
         }
     }

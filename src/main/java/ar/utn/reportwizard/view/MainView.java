@@ -13,9 +13,15 @@ public class MainView {
         while (true) {
             ConsoleUtil.clearConsole();
 
-            System.out.println("INCIDENT WIZARD 1.0\n");
+            System.out.println("""
+                               
+ ____  ____  ____  _____  ____  ____    _    _  ____  ____    __    ____  ____  
+(  _ \\( ___)(  _ \\(  _  )(  _ \\(_  _)  ( \\/\\/ )(_  _)(_   )  /__\\  (  _ \\(  _ \\ 
+ )   / )__)  )___/ )(_)(  )   /  )(     )    (  _)(_  / /_  /(__)\\  )   / )(_) )
+(_)\\_)(____)(__)  (_____)(_)\\_) (__)   (__/\\__)(____)(____)(__)(__)(_)\\_)(____/ 
+                                                                                 V1.0""");
             System.out.println(
-                    """
+                    """                   
 1. AREA DE RECURSOS HUMANOS
 2. AREA COMERCIAL
 3. MESA DE AYUDA
@@ -50,7 +56,6 @@ public class MainView {
             }
 
             System.out.print("\n[Presione ENTER para continuar] ");
-            scanner.nextLine();
             scanner.nextLine();
             System.out.println("\n\n");
         }

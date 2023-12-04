@@ -71,7 +71,7 @@ public class TechnicianController {
             try {
                 System.out.println("Ingrese: #ID para agregarsela. C para crearle una nueva especialidad. X para finalizar: ");
                 System.out.print(specialties);
-                String idSelectedStr = Utils.getNonEmptyInput(">_ ");
+                String idSelectedStr = Utils.getNonEmptyInput("\n>_ ");
                 if (idSelectedStr.toUpperCase().equals("X")) {
                     System.out.println("!!!Cancelado por el Usuario");
                     return;
@@ -218,7 +218,7 @@ public class TechnicianController {
                 }
                 System.out.println("||");
 
-                System.out.print("\nDesea buscar otro?\n\t1. SI\n\t2. NO\nOpcion >_ ");
+                System.out.print("\nEs el tecnico Correcto?\n\t1. NO\n\t2. SI\nOpcion >_ ");
                 try {
                     int option = scanner.nextInt();
 
@@ -285,8 +285,9 @@ public class TechnicianController {
                 System.out.println("!!!Este tecnico se encuentra eliminado.");
             } else {
                 System.out.println("\nUsted eligio: " + technician + "\n");
-                System.out.println("Ingrese el nuevo valor, para ignorar presionar ENTER");
+                System.out.println("Ingrese el nuevo valor, para mantenerlo dejar en blanco");
                 System.out.print("Nombre: " + technician.getName() + " -> ");
+                scanner.nextLine();
                 String newName = scanner.nextLine();
                 if (!newName.isBlank()) {
                     technician.setName(newName);
@@ -317,11 +318,25 @@ public class TechnicianController {
                 }
                 technician.setPreferred_contact_method(contactMethod);
 
+                System.out.print("\n1. GUARDAR\n2. CANCELAR\nOpcion ");
+                try {
+                    int option = Utils.getIntInput(">_ ");
+
+                    if (option == 2) {
+                        break;
+                    } else if (option > 2 || option < 1) {
+                        System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
+                        scanner.nextLine();
+                    }
+                } catch (Exception e) {
+                    System.out.println("!!!Entrada incorrecta, solo se admiten numeros");
+                }
+
                 this.technicianService.update(technician);
 
-                System.out.print("\nDesea editar a otro?\n\t1. SI\n\t2. NO\nOpcion >_ ");
+                System.out.print("\nDesea editar a otro?\n\t1. SI\n\t2. NO\nOpcion ");
                 try {
-                    int option = scanner.nextInt();
+                    int option = Utils.getIntInput(">_ ");
 
                     if (option == 2) {
                         break;

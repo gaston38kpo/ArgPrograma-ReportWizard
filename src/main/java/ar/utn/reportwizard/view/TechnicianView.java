@@ -1,10 +1,8 @@
 package ar.utn.reportwizard.view;
 
 import ar.utn.reportwizard.controller.TechnicianController;
-import ar.utn.reportwizard.model.Problem;
 import ar.utn.reportwizard.model.Technician;
 import ar.utn.reportwizard.util.ConsoleUtil;
-import java.util.Scanner;
 
 public class TechnicianView {
 
