@@ -289,6 +289,7 @@ public class CustomerController {
 BUSCAR POR:
 1. RAZON SOCIAL
 2. CUIT
+3. SALIR
 """);
                 int searchOption = Utils.getIntInput(">_ ");
 
@@ -302,6 +303,8 @@ BUSCAR POR:
                     if (customer.getCuit() != null) {
                         break;
                     }
+                } else if (searchOption == 3) {
+                    return null;
                 } else {
                     System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
                     scanner.nextLine();

@@ -43,7 +43,7 @@ public class IncidentController {
 
         Service service = null;
         do {
-            final Long idInputService = Utils.getLongInput(">_ ");
+            final Long idInputService = Utils.getLongInput("ID: ");
 
             service = services.stream()
                     .filter(s -> (s.getId() == idInputService))

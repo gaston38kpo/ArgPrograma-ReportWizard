@@ -218,11 +218,11 @@ public class TechnicianController {
                 }
                 System.out.println("||");
 
-                System.out.print("\nEs el tecnico Correcto?\n\t1. NO\n\t2. SI\nOpcion >_ ");
+                System.out.print("\nEs el tecnico Correcto?\n\t1. SI\n\t2. NO\nOpcion >_ ");
                 try {
                     int option = scanner.nextInt();
 
-                    if (option == 2) {
+                    if (option == 1) {
                         return technician;
                     } else if (option > 2 || option < 1) {
                         System.out.println("!!!Opcion incorrecta, intentelo de nuevo");
